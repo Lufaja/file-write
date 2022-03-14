@@ -1,12 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
 import datetime
-
+import os.path
 
 window = tk.Tk()
+window.configure(bg="black")
 event = 0
-state = 0
+state = 1
 # schijf hier tussen je code
+
+
 
 def log(state):
     if state == 0:
@@ -20,7 +23,7 @@ def log(state):
     return
 
 
-def button_pressed(event):
+def button_pressed(event=""):
     global state, button
     if state == 0:
         log(state)
@@ -40,14 +43,16 @@ def txtChange():
     else:
         button.config(text= "Switch lights on")
 
-button = tk.Button(text='Lights off', bg="white", fg="black")
+
+button = tk.Button(text='Switch lights on', bg="white", fg="black")
 button.pack(pady = 20, padx = 20)
 button.bind('<Button>', button_pressed)
 
+path = os.path.dirname(os.path.abspath(__file__))
+if os.path.exists(path+"actions.log") == False:
+    button_pressed()
 button.focus()
 button.pack(expand=True)
-txtChange()
-button_pressed(event)
 # schijf hier tussen je code
 
 window.mainloop()
